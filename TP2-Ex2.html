@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP2-Ex2</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        #app{
+            margin-top: 50px;
+            text-align: center;
+        }
+        .box {
+            width: 400px;
+            height: 30px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 20px;
+        }
+        #btn {
+            width: 80px;
+            height: 30px;
+            border: 1px solid red;
+            color: blue;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <click></click>
+    </div>
+    <script>
+        const clickMe={
+            props:['texts'],
+            data() {
+                return{
+                    id: 0,
+                    text:"",
+                }
+            },
+            methods: {
+                click(){
+                    alert("I'm some random text")
+                    this.text="I'm some radom text";
+                }
+            },
+            template: `
+                <div class="box">
+                    <span>{{text}} {{texts}}</span>
+                    <button id="btn" v-on:click="click()">Click Me</button>
+                </div>
+            `
+        }
+        const clickMe2 = {
+            data() {
+                return{
+                    items: [
+                        {
+                            id: 1,
+                            text: "blah blah ..",
+                        },
+                        {
+                            id: 2,
+                            text: "blah blah ..",
+                        },
+                        {
+                            id: 3,
+                            text: "blah blah ..",
+                        },
+                        {
+                            id: 4,
+                            text: "blah blah ..",
+                        },
+                        {
+                            id: 5,
+                            text: "blah blah ..",
+                        },
+                        {
+                            id: 6,
+                            text: "blah blah ..",
+                        },
+                        {
+                            id: 7,
+                            text: "blah blah ..",
+                        },
+                        {
+                            id: 8,
+                            text: "blah blah ..",
+                        },
+                        {
+                            id: 9,
+                            text: "blah blah ..",
+                        },
+                        {
+                            id: 10,
+                            text: "blah blah ..",
+                        }
+                    ]
+                }
+            },
+            components: {
+                "clickMe": clickMe,
+            },
+            template:
+            `
+                <div v-for= "i in items">
+                    <clickMe :texts="i.text"></clickMe>
+                </div>
+            `
+        }
+        const app = Vue.createApp({
+            components: {
+                'click': clickMe2
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
