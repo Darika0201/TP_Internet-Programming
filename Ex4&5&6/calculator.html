@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Awesome Calculator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./assets/css/index.css">
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <div class="container" id="cal">
+    <table>
+      <tr>
+        <td colspan="5">
+          <div id="screen">
+            <span id="screen_top">M={{Memory}}</span>
+            <div id="screen_bottom">
+              <span id="operand1" v-if="displayNumber.length > 8 " style="font-size: medium;">Calculator only support 8 digit</span>
+              <span id="operand1" v-else>{{displayNumber}}</span>
+              <span id="operator"></span>
+              <span id="operand2"></span>
+            </div>
+            <!-- <span id="screen_bottom">0</span> -->
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button" class="btn btn-warning" v-on:click="clearMemory()">MC</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-warning" v-on:click="recalMemory()">MR</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-warning" v-on:click="subMemory()">M-</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-warning" v-on:click="addMemory()">M+</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(7)">7</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(8)">8</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(9)">9</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-secondary">÷</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light">+/-</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(4)">4</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(5)">5</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(6)">6</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-secondary">x</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-secondary">-</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(1)">1</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(2)">2</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(3)">3</button>
+        </td>
+        <td rowspan="2">
+          <button type="button" class="btn btn-secondary long-btn">+</button>
+        </td>
+        <td rowspan="2">
+          <button type="button" class="btn btn-primary long-btn">=</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button" class="btn btn-danger" v-on:click="clear()">C</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light" v-on:click="clickNumber(0)">0</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-light">.</button>
+        </td>
+      </tr>
+    </table>
+    <!-- <div v-if="diplayNumber > 6 " class="alert alert-danger" id="message_panel" role="alert">
+      something wrong here
+    </div>
+    <div v-else class="alert alert-danger" id="message_panel" role="alert">
+      nothing wrong
+    </div> -->
+  </div>
+  
+  <script>
+    Vue.createApp({
+      data() {
+        return{
+          displayNumber: 0,
+          Memory: 0,
+        }
+      },
+      methods: {
+        clickNumber(number){
+          if(this.displayNumber==0) {
+            this.displayNumber = number;
+          } else {
+            this.displayNumber += `${number}`;
+          }
+        },
+        clear(){
+          this.displayNumber = 0;
+        },
+        recalMemory(){
+          this.displayNumber = this.Memory;
+        },
+        clearMemory(){
+          this.Memory = 0; 
+        },
+        addMemory(){
+          this.Memory = Number(this.Memory) + Number(this.displayNumber);
+          this.displayNumber = 0;
+        },
+        subMemory(){
+          this.Memory = Number(this.Memory) - Number(this.displayNumber);
+          this.displayNumber = 0;
+        }
+      }
+    }).mount("#cal");
+    
+  </script>
+</body>
+</html>
